@@ -1,7 +1,9 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  // Configuration options for production deployment
+  reactStrictMode: true,
+  swcMinify: true,
 };
 
 export default nextConfig;

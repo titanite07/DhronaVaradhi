@@ -82,7 +82,7 @@ export default function FeatureShowcase() {
     {
       icon: <Users className="h-5 w-5 text-indigo-500" />,
       title: "Referral Network",
-      description: "Connect with people who work at companies you're interested in and get warm introductions.",
+      description: "Connect with people who work at companies you&apos;re interested in and get warm introductions.",
       status: "planned",
       category: "community"
     },
