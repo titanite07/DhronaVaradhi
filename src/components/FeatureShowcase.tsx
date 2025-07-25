@@ -172,8 +172,8 @@ export default function FeatureShowcase() {
             Upcoming Features & Roadmap
           </h2>
           <p className="text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-            We're constantly evolving to make job searching more human, connected, and effective. 
-            Here's what we're building to support your career journey.
+            We&apos;re constantly evolving to make job searching more human, connected, and effective. 
+            Here&apos;s what we&apos;re building to support your career journey.
           </p>
         </div>
 
@@ -239,7 +239,7 @@ export default function FeatureShowcase() {
             Help Shape Our Future
           </h3>
           <p className="text-gray-600 dark:text-gray-300 mb-6 max-w-2xl mx-auto">
-            Have ideas for features that would make your job search better? We'd love to hear from you! 
+            Have ideas for features that would make your job search better? We&apos;d love to hear from you! 
             Your feedback drives our development roadmap.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
