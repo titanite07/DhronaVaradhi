@@ -1,0 +1,85 @@
+"use client";
+
+import { useState, useRef, useCallback, useMemo } from "react";
+
+interface VirtualScrollListProps<T> {
+  items: T[];
+  itemHeight: number;
+  containerHeight: number;
+  renderItem: (item: T, index: number) => React.ReactNode;
+  overscan?: number;
+  className?: string;
+}
+
+export default function VirtualScrollList<T>({
+  items,
+  itemHeight,
+  containerHeight,
+  renderItem,
+  overscan = 5,
+  className = "",
+}: VirtualScrollListProps<T>) {
+  const [scrollTop, setScrollTop] = useState(0);
+  const scrollElementRef = useRef<HTMLDivElement>(null);
+
+  const handleScroll = useCallback((e: React.UIEvent<HTMLDivElement>) => {
+    setScrollTop(e.currentTarget.scrollTop);
+  }, []);
+
+  // Calculate visible range
+  const visibleRange = useMemo(() => {
+    const startIndex = Math.floor(scrollTop / itemHeight);
+    const endIndex = Math.min(
+      startIndex + Math.ceil(containerHeight / itemHeight),
+      items.length - 1
+    );
+
+    return {
+      start: Math.max(0, startIndex - overscan),
+      end: Math.min(items.length - 1, endIndex + overscan),
+    };
+  }, [scrollTop, itemHeight, containerHeight, items.length, overscan]);
+
+  // Get visible items
+  const visibleItems = useMemo(() => {
+    const result = [];
+    for (let i = visibleRange.start; i <= visibleRange.end; i++) {
+      result.push({
+        index: i,
+        item: items[i],
+      });
+    }
+    return result;
+  }, [items, visibleRange]);
+
+  // Calculate total height and offset
+  const totalHeight = items.length * itemHeight;
+  const offsetY = visibleRange.start * itemHeight;
+
+  return (
+    <div
+      ref={scrollElementRef}
+      className={`overflow-auto ${className}`}
+      style={{ height: containerHeight }}
+      onScroll={handleScroll}
+    >
+      <div style={{ height: totalHeight, position: 'relative' }}>
+        <div
+          style={{
+            transform: `translateY(${offsetY}px)`,
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            right: 0,
+          }}
+        >
+          {visibleItems.map(({ index, item }) => (
+            <div key={index} style={{ height: itemHeight }}>
+              {renderItem(item, index)}
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
