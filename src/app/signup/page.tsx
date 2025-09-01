@@ -222,3 +222,29 @@ export default function SignupPage() {
             </Button>
           </form>
 
+          {/* Login Link */}
+          <div className="text-center">
+            <p className="text-sm text-gray-600 dark:text-gray-400">
+              Already have an account?{' '}
+              <Link href="/login" className="text-orange-600 hover:text-orange-500 font-medium transition-colors">
+                Sign in here
+              </Link>
+            </p>
+          </div>
+
+          
+          <div className="text-center pt-2">
+            <Link 
+              href="/" 
+              className="inline-flex items-center text-sm text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 transition-colors"
+            >
+              <ArrowLeft className="w-4 h-4 mr-1" />
+              Back to Home
+            </Link>
+          </div>
+        </CardContent>
+      </Card>
+    </div>
+  );
+}
+

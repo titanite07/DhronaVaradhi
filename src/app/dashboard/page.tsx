@@ -3,17 +3,13 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { toast } from "sonner";
 import { 
   Briefcase, 
   Heart, 
   TrendingUp, 
-  Calendar,
-  Clock,
-  Settings,
-  Search,
-  BarChart3
+  Calendar
 } from "lucide-react";
 import Link from "next/link";
 import JobAnalytics from "@/components/JobAnalytics";
@@ -83,7 +79,7 @@ export default function DashboardPage() {
             Welcome back, {userData.name}! 
           </h2>
           <p className="text-gray-600 dark:text-gray-400">
-            Here's what's happening with your job search today.
+            Here&apos;s what&apos;s happening with your job search today.
           </p>
         </div>
 
