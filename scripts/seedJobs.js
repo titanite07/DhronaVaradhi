@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 // Connect to MongoDB
 async function dbConnect() {
-  const MONGODB_URI = "mongodb://localhost:27017/DhronaVaradhi";
+  const MONGODB_URI = "mongodb://localhost:27017/jobshare";
   try {
     await mongoose.connect(MONGODB_URI);
     console.log("Connected to MongoDB");
@@ -34,7 +34,7 @@ const sampleJobs = [
     title: "Senior Frontend Developer",
     company: "TechCorp",
     location: "Remote",
-    link: "https://example.com/job1",
+    link: "https://github.com/jobs",
     description: "Join our amazing team to build the next generation of web applications using React, TypeScript, and modern tools.",
     type: "Full Time",
     tags: ["React", "TypeScript", "Remote"]
@@ -43,7 +43,7 @@ const sampleJobs = [
     title: "UX/UI Designer",
     company: "Design Studio",
     location: "San Francisco",
-    link: "https://example.com/job2", 
+    link: "https://stackoverflow.com/jobs", 
     description: "We're looking for a creative designer to help shape user experiences for our flagship products.",
     type: "Full Time",
     tags: ["Design", "Figma", "User Experience"]
@@ -52,7 +52,7 @@ const sampleJobs = [
     title: "Backend Engineer Intern",
     company: "StartupXYZ",
     location: "Hybrid",
-    link: "https://example.com/job3",
+    link: "https://linkedin.com/jobs",
     description: "Great opportunity for students to learn backend development with Node.js and databases.",
     type: "Internship", 
     tags: ["Node.js", "MongoDB", "Internship"]
@@ -61,7 +61,7 @@ const sampleJobs = [
     title: "Product Manager",
     company: "InnovateCo",
     location: "New York",
-    link: "https://example.com/job4",
+    link: "https://indeed.com",
     description: "Lead product strategy and work with cross-functional teams to deliver amazing user experiences.",
     type: "Full Time",
     tags: ["Product Management", "Strategy", "Leadership"]
@@ -70,10 +70,37 @@ const sampleJobs = [
     title: "DevOps Consultant",
     company: "CloudSolutions",
     location: "Remote",
-    link: "https://example.com/job5",
+    link: "https://glassdoor.com",
     description: "Help companies modernize their infrastructure with cloud-native solutions and CI/CD pipelines.",
     type: "Contract",
     tags: ["DevOps", "AWS", "Docker", "Remote"]
+  },
+  {
+    title: "Full Stack Developer",
+    company: "WebTech Solutions",
+    location: "Boston",
+    link: "https://google.com/careers",
+    description: "Work on exciting projects using modern technologies including React, Node.js, and cloud platforms.",
+    type: "Full Time",
+    tags: ["JavaScript", "React", "Node.js", "Full Stack"]
+  },
+  {
+    title: "Data Scientist",
+    company: "DataVision Inc",
+    location: "Remote",
+    link: "https://microsoft.com/careers",
+    description: "Analyze complex datasets and build machine learning models to drive business insights.",
+    type: "Full Time",
+    tags: ["Python", "Machine Learning", "Data Analysis", "Remote"]
+  },
+  {
+    title: "Mobile App Developer",
+    company: "AppForge",
+    location: "Austin",
+    link: "https://apple.com/careers",
+    description: "Build innovative mobile applications for iOS and Android platforms using React Native.",
+    type: "Full Time",
+    tags: ["React Native", "Mobile", "iOS", "Android"]
   }
 ];
 

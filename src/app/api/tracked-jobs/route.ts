@@ -3,7 +3,6 @@ import TrackedJobModel from "@/models/trackedJobModel";
 import JobModel from "@/models/jobModel";
 import dbConnect from "@/utils/dbConnect";
 
-// Get user's tracked jobs
 export const GET = async (req: NextRequest) => {
   try {
     await dbConnect();
@@ -44,7 +43,6 @@ export const GET = async (req: NextRequest) => {
   }
 };
 
-// Update job status or add to tracking
 export const POST = async (req: NextRequest) => {
   try {
     await dbConnect();
@@ -97,7 +95,6 @@ export const POST = async (req: NextRequest) => {
   }
 };
 
-// Delete tracked job
 export const DELETE = async (req: NextRequest) => {
   try {
     await dbConnect();
@@ -130,3 +127,4 @@ export const DELETE = async (req: NextRequest) => {
     );
   }
 };
+

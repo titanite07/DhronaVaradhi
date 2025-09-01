@@ -3,7 +3,6 @@ import FavoriteModel from "@/models/favoriteModel";
 import JobModel from "@/models/jobModel";
 import dbConnect from "@/utils/dbConnect";
 
-// Get user's favorites
 export const GET = async (req: NextRequest) => {
   try {
     await dbConnect();
@@ -36,7 +35,6 @@ export const GET = async (req: NextRequest) => {
   }
 };
 
-// Add/Remove favorite
 export const POST = async (req: NextRequest) => {
   try {
     await dbConnect();
@@ -51,7 +49,6 @@ export const POST = async (req: NextRequest) => {
       );
     }
 
-    // Check if job exists
     const job = await JobModel.findById(jobId);
     if (!job) {
       return NextResponse.json(
@@ -104,3 +101,4 @@ export const POST = async (req: NextRequest) => {
     );
   }
 };
+

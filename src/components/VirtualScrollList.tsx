@@ -26,7 +26,7 @@ export default function VirtualScrollList<T>({
     setScrollTop(e.currentTarget.scrollTop);
   }, []);
 
-  // Calculate visible range
+  
   const visibleRange = useMemo(() => {
     const startIndex = Math.floor(scrollTop / itemHeight);
     const endIndex = Math.min(
@@ -40,7 +40,7 @@ export default function VirtualScrollList<T>({
     };
   }, [scrollTop, itemHeight, containerHeight, items.length, overscan]);
 
-  // Get visible items
+  
   const visibleItems = useMemo(() => {
     const result = [];
     for (let i = visibleRange.start; i <= visibleRange.end; i++) {
@@ -52,7 +52,7 @@ export default function VirtualScrollList<T>({
     return result;
   }, [items, visibleRange]);
 
-  // Calculate total height and offset
+  
   const totalHeight = items.length * itemHeight;
   const offsetY = visibleRange.start * itemHeight;
 

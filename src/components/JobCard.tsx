@@ -36,7 +36,7 @@ export const JobCard: React.FC<JobCardProps> = ({ job, isFavorited = false, onTo
 
   const [isTracking, setIsTracking] = useState(false);
 
-  // Generate a simple user identifier (in production, use proper user auth)
+  
   const getUserIdentifier = () => {
     let identifier = localStorage.getItem("userIdentifier");
     if (!identifier) {
@@ -89,9 +89,9 @@ export const JobCard: React.FC<JobCardProps> = ({ job, isFavorited = false, onTo
   return (
     <Card
       key={job._id}
-      className="group relative flex flex-col justify-between h-full p-6 rounded-3xl border border-orange-100 dark:border-orange-900/50 bg-white/70 dark:bg-gray-800/60 backdrop-blur-xl shadow-sm hover:shadow-2xl transition-all duration-500 hover:scale-[1.02] hover:border-orange-200 dark:hover:border-orange-800 overflow-hidden"
+      className="group relative flex flex-col justify-between h-full max-h-[500px] p-6 rounded-3xl border border-orange-100 dark:border-orange-900/50 bg-white/70 dark:bg-gray-800/60 backdrop-blur-xl shadow-sm hover:shadow-2xl transition-all duration-500 hover:scale-[1.02] hover:border-orange-200 dark:hover:border-orange-800 overflow-hidden"
     >
-      {/* Subtle gradient overlay */}
+      
       <div className="absolute inset-0 bg-gradient-to-br from-orange-50/20 via-transparent to-rose-50/20 dark:from-orange-900/10 dark:to-rose-900/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
       
       <div className="relative z-10">
@@ -127,24 +127,24 @@ export const JobCard: React.FC<JobCardProps> = ({ job, isFavorited = false, onTo
         </div>
 
         {preview.title && (
-          <div className="rounded-2xl border border-orange-100 dark:border-orange-900/30 p-4 my-4 bg-gradient-to-r from-orange-50/50 to-rose-50/50 dark:from-orange-900/20 dark:to-rose-900/20 backdrop-blur-sm">
+          <div className="rounded-2xl border border-orange-100 dark:border-orange-900/30 p-4 my-4 bg-gradient-to-r from-orange-50/50 to-rose-50/50 dark:from-orange-900/20 dark:to-rose-900/20 backdrop-blur-sm max-h-[200px] overflow-hidden">
             {preview.image && (
               <Image
                 src={preview.image}
                 alt="preview"
                 width={400}
-                height={160}
-                className="w-full h-40 object-cover rounded-xl mb-3 shadow-md"
+                height={120}
+                className="w-full h-24 object-cover rounded-xl mb-3 shadow-md"
               />
             )}
-            <h4 className="font-semibold text-sm text-gray-800 dark:text-gray-200 mb-2">{preview.title}</h4>
-            <p className="text-xs text-gray-600 dark:text-gray-400 line-clamp-3 leading-relaxed">
+            <h4 className="font-semibold text-sm text-gray-800 dark:text-gray-200 mb-2 line-clamp-1">{preview.title}</h4>
+            <p className="text-xs text-gray-600 dark:text-gray-400 line-clamp-2 leading-relaxed">
               {preview.description}
             </p>
           </div>
         )}
 
-        <CardContent className="text-sm text-gray-600 dark:text-gray-300 line-clamp-4 px-0 mb-4 leading-relaxed">
+        <CardContent className="text-sm text-gray-600 dark:text-gray-300 line-clamp-3 px-0 mb-4 leading-relaxed min-h-[60px]">
           {job.description}
         </CardContent>
       </div>
@@ -169,9 +169,9 @@ export const JobCard: React.FC<JobCardProps> = ({ job, isFavorited = false, onTo
         ))}
       </CardFooter>
       
-      {/* Action buttons */}
+      
       <div className="absolute top-4 right-4 flex flex-col gap-2 opacity-0 group-hover:opacity-100 transition-all duration-300">
-        {/* Track button */}
+      
         <Button
           size="sm"
           variant="outline"
@@ -183,7 +183,7 @@ export const JobCard: React.FC<JobCardProps> = ({ job, isFavorited = false, onTo
           <Plus className={`h-4 w-4 text-orange-500 transition-all duration-300 ${isTracking ? 'animate-spin' : ''}`} />
         </Button>
         
-        {/* Like button */}
+      
         <button 
           className={`p-2 rounded-full backdrop-blur-sm transition-all duration-300 ${
             isFavorited 

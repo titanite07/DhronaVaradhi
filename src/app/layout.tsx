@@ -3,9 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "sonner";
 import { Providers } from "./providers";
-import Docker from "@/components/Docker";
-import Hero from "@/components/Hero";
-import FeatureShowcase from "@/components/FeatureShowcase";
+import FloatingNavbar from "@/components/FloatingNavbar";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -33,10 +31,8 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <Providers>
-          <Hero />
-          <Docker />
+          <FloatingNavbar />
           <main className="min-h-screen">{children}</main>
-          <FeatureShowcase />
           <Toaster />
         </Providers>
       </body>

@@ -6,70 +6,63 @@ export const GET = async () => {
   try {
     await dbConnect();
 
-    // Get total jobs count
     const totalJobs = await JobModel.countDocuments();
 
-    // Get jobs by type
     const jobsByType = await JobModel.aggregate([
       {
         $group: {
           _id: "$type",
-          count: { $sum: 1 }
-        }
-      }
+          count: { $sum: 1 },
+        },
+      },
     ]);
 
-    // Get jobs by location
     const jobsByLocation = await JobModel.aggregate([
       {
         $group: {
           _id: "$location",
-          count: { $sum: 1 }
-        }
-      }
+          count: { $sum: 1 },
+        },
+      },
     ]);
 
-    // Get recent jobs (last 7 days)
     const sevenDaysAgo = new Date();
     sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
-    
     const recentJobs = await JobModel.countDocuments({
-      createdAt: { $gte: sevenDaysAgo }
+      createdAt: { $gte: sevenDaysAgo },
     });
 
-    // Get top companies
     const topCompanies = await JobModel.aggregate([
       {
         $group: {
           _id: "$company",
-          count: { $sum: 1 }
-        }
+          count: { $sum: 1 },
+        },
       },
       {
-        $sort: { count: -1 }
+        $sort: { count: -1 },
       },
       {
-        $limit: 5
-      }
+        $limit: 5,
+      },
     ]);
 
-    // Get most popular tags
     const popularTags = await JobModel.aggregate([
       {
-        $unwind: "$tags"
+        $unwind: "$tags",
       },
       {
         $group: {
           _id: "$tags",
-          count: { $sum: 1 }
-        }
+          count: { $sum: 1 },
+        },
       },
       {
-        $sort: { count: -1 }
+        $sort: { count: -1 },
       },
       {
-        $limit: 10
-      }
+        $limit: 10,
+      },
     ]);
 
     return NextResponse.json({
@@ -84,7 +77,8 @@ export const GET = async () => {
     console.log("Error getting analytics", err);
     return NextResponse.json(
       { message: "Error getting analytics" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 };
+

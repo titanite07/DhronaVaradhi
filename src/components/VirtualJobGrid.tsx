@@ -33,7 +33,7 @@ export default function VirtualJobGrid({
   itemsPerRow = 3,
   itemHeight = 320,
 }: VirtualJobGridProps) {
-  // Group jobs into rows for grid layout
+
   const jobRows = useMemo(() => {
     const rows = [];
     for (let i = 0; i < jobs.length; i += itemsPerRow) {
@@ -43,7 +43,7 @@ export default function VirtualJobGrid({
   }, [jobs, itemsPerRow]);
 
   const renderJobRow = (row: Job[], index: number) => (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 px-4">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 px-4 py-4">
       {row.map((job) => (
         <JobCard
           key={job._id}

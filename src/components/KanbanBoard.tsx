@@ -37,7 +37,7 @@ export default function KanbanBoard() {
   const [loading, setLoading] = useState(true);
   const [draggedJob, setDraggedJob] = useState<TrackedJob | null>(null);
 
-  // Generate a simple user identifier (in production, use proper user auth)
+  
   const getUserIdentifier = () => {
     let identifier = localStorage.getItem("userIdentifier");
     if (!identifier) {
@@ -73,7 +73,7 @@ export default function KanbanBoard() {
         status: newStatus,
       });
 
-      // Update local state
+     
       setJobs(prevJobs =>
         prevJobs.map(job =>
           job.trackingId === trackingId
@@ -106,7 +106,7 @@ export default function KanbanBoard() {
     fetchTrackedJobs();
   }, [fetchTrackedJobs]);
 
-  // Drag and Drop handlers
+  
   const handleDragStart = (e: React.DragEvent, job: TrackedJob) => {
     setDraggedJob(job);
     e.dataTransfer.effectAllowed = "move";

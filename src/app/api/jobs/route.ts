@@ -18,8 +18,7 @@ async function isLinkAlive(url: string) {
       },
     });
     return res.status >= 200 && res.status < 400;
-  } catch (err) {
-    console.log(err);
+  } catch {
     return false;
   }
 }
@@ -111,3 +110,4 @@ export const POST = async (req: NextRequest) => {
     });
   }
 };
+

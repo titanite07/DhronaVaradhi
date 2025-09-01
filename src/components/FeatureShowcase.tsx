@@ -64,7 +64,6 @@ const FeatureCard: React.FC<FeatureCardProps> = ({ icon, title, description, sta
 
 export default function FeatureShowcase() {
   const features: FeatureCardProps[] = [
-    // Community Features
     {
       icon: <Heart className="h-5 w-5 text-rose-500" />,
       title: "Job Favorites & Wishlist",
@@ -94,7 +93,6 @@ export default function FeatureShowcase() {
       category: "community"
     },
 
-    // Productivity Features
     {
       icon: <Bell className="h-5 w-5 text-amber-500" />,
       title: "Smart Notifications",
@@ -124,7 +122,6 @@ export default function FeatureShowcase() {
       category: "productivity"
     },
 
-    // AI Features
     {
       icon: <Zap className="h-5 w-5 text-yellow-500" />,
       title: "AI Job Matching",
@@ -147,7 +144,6 @@ export default function FeatureShowcase() {
       category: "ai"
     },
 
-    // Security Features
     {
       icon: <Shield className="h-5 w-5 text-green-600" />,
       title: "Verified Companies",
@@ -178,7 +174,6 @@ export default function FeatureShowcase() {
         </div>
 
         <div className="space-y-12">
-          {/* Community Features */}
           <section>
             <div className="flex items-center gap-3 mb-6">
               <div className="w-1 h-8 bg-gradient-to-b from-rose-400 to-rose-600 rounded-full"></div>
@@ -191,7 +186,6 @@ export default function FeatureShowcase() {
             </div>
           </section>
 
-          {/* Productivity Features */}
           <section>
             <div className="flex items-center gap-3 mb-6">
               <div className="w-1 h-8 bg-gradient-to-b from-blue-400 to-blue-600 rounded-full"></div>
@@ -204,7 +198,7 @@ export default function FeatureShowcase() {
             </div>
           </section>
 
-          {/* AI Features */}
+
           <section>
             <div className="flex items-center gap-3 mb-6">
               <div className="w-1 h-8 bg-gradient-to-b from-purple-400 to-purple-600 rounded-full"></div>
@@ -217,7 +211,6 @@ export default function FeatureShowcase() {
             </div>
           </section>
 
-          {/* Security Features */}
           <section>
             <div className="flex items-center gap-3 mb-6">
               <div className="w-1 h-8 bg-gradient-to-b from-green-400 to-green-600 rounded-full"></div>
@@ -233,7 +226,6 @@ export default function FeatureShowcase() {
           </section>
         </div>
 
-        {/* Call to action */}
         <div className="mt-16 text-center p-8 bg-gradient-to-r from-orange-100 to-rose-100 dark:from-orange-900/20 dark:to-rose-900/20 rounded-3xl backdrop-blur-sm">
           <h3 className="text-2xl font-bold mb-4 text-gray-800 dark:text-gray-200">
             Help Shape Our Future
@@ -255,3 +247,4 @@ export default function FeatureShowcase() {
     </div>
   );
 }
+
