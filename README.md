@@ -1,6 +1,6 @@
-# Job Share
+# DhronaVaradhi
 
-Job Share is a collaborative platform designed to help users share and discover job opportunities. Built with a focus on collaboration rather than competition, this application allows users to post jobs, filter opportunities, and connect with others in a meaningful way.
+DhronaVaradhi is a collaborative platform designed to help users share and discover job opportunities. Built with a focus on collaboration rather than competition, this application allows users to post jobs, filter opportunities, and connect with others in a meaningful way.
 
 ## Features
 
