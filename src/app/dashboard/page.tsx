@@ -43,8 +43,8 @@ export default function DashboardPage() {
         const user = JSON.parse(authData);
         setUserData(user);
         
-        // Set auth cookie for middleware
-        document.cookie = `authToken=${authToken}; path=/; max-age=86400`; // 24 hours
+        
+        document.cookie = `authToken=${authToken}; path=/; max-age=86400`; 
         
         setIsLoading(false);
       } catch (error) {

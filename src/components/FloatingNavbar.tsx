@@ -130,14 +130,14 @@ export default function FloatingNavbar() {
 
   return (
     <>
-      {/* Main Floating Navbar */}
+      {}
       <nav className={`fixed top-4 left-1/2 transform -translate-x-1/2 z-50 transition-all duration-300 ${
         isScrolled 
           ? 'bg-white/90 dark:bg-gray-900/90 backdrop-blur-xl shadow-2xl border border-orange-100 dark:border-orange-900/50' 
           : 'bg-white/80 dark:bg-gray-900/80 backdrop-blur-lg shadow-xl border border-orange-200/50 dark:border-orange-800/30'
       } rounded-full px-6 py-3`}>
         <div className="flex items-center space-x-6">
-          {/* Logo */}
+          {}
           <Link href="/" className="flex items-center space-x-2 mr-2">
             <div className="w-8 h-8 bg-gradient-to-br from-orange-500 to-rose-500 rounded-lg flex items-center justify-center">
               <Briefcase className="w-4 h-4 text-white" />
@@ -147,7 +147,7 @@ export default function FloatingNavbar() {
             </span>
           </Link>
 
-          {/* Desktop Navigation */}
+          {}
           <div className="hidden md:flex items-center space-x-1">
             {getVisibleNavItems().map((item) => (
               <Link key={item.href} href={item.href}>
@@ -167,7 +167,7 @@ export default function FloatingNavbar() {
             ))}
           </div>
 
-          {/* User Menu / Auth Buttons */}
+          {}
           <div className="hidden md:flex items-center space-x-2 ml-4 pl-4 border-l border-orange-200 dark:border-orange-800">
             {isAuthenticated ? (
               <div className="flex items-center space-x-2">
@@ -213,7 +213,7 @@ export default function FloatingNavbar() {
             )}
           </div>
 
-          {/* Mobile Menu Button */}
+          {}
           <Button
             variant="ghost"
             size="sm"
@@ -229,7 +229,7 @@ export default function FloatingNavbar() {
         </div>
       </nav>
 
-      {/* Mobile Menu Overlay */}
+      {}
       {isMobileMenuOpen && (
         <div className="fixed inset-0 z-40 md:hidden">
           <div 
@@ -237,7 +237,7 @@ export default function FloatingNavbar() {
             onClick={() => setIsMobileMenuOpen(false)}
           />
           <div className="absolute top-20 left-4 right-4 bg-white dark:bg-gray-900 rounded-2xl shadow-2xl border border-orange-100 dark:border-orange-900/50 p-6">
-            {/* Mobile Navigation Items */}
+            {}
             <div className="space-y-3">
               {getVisibleNavItems().map((item) => (
                 <Link 
@@ -260,7 +260,7 @@ export default function FloatingNavbar() {
               ))}
             </div>
 
-            {/* Mobile User Section */}
+            {}
             <div className="mt-6 pt-6 border-t border-orange-100 dark:border-orange-800">
               {isAuthenticated ? (
                 <div className="space-y-3">
@@ -303,7 +303,7 @@ export default function FloatingNavbar() {
         </div>
       )}
 
-      {/* Spacer to prevent content from being hidden behind navbar */}
+      {}
       <div className="h-20" />
     </>
   );

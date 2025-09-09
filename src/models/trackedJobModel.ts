@@ -35,7 +35,7 @@ const trackedJobSchema = new mongoose.Schema({
   },
 });
 
-// Compound index to ensure one entry per user per job
+
 trackedJobSchema.index({ jobId: 1, userIdentifier: 1 }, { unique: true });
 
 const TrackedJobModel = mongoose.models.TrackedJob || mongoose.model("TrackedJob", trackedJobSchema);

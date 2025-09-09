@@ -9,7 +9,7 @@ const favoriteSchema = new mongoose.Schema({
   userIdentifier: {
     type: String,
     required: true,
-    // This can be IP address, session ID, or user ID when auth is implemented
+    
   },
   createdAt: {
     type: Date,
@@ -17,7 +17,7 @@ const favoriteSchema = new mongoose.Schema({
   },
 });
 
-// Create compound index to prevent duplicate favorites
+
 favoriteSchema.index({ jobId: 1, userIdentifier: 1 }, { unique: true });
 
 const FavoriteModel = mongoose.models.Favorite || mongoose.model("Favorite", favoriteSchema);

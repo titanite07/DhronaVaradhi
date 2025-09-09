@@ -52,7 +52,7 @@ export default function VirtualJobGrid({
           onToggleFavorite={onToggleFavorite}
         />
       ))}
-      {/* Fill empty spots in the last row */}
+      {}
       {row.length < itemsPerRow &&
         Array.from({ length: itemsPerRow - row.length }).map((_, emptyIndex) => (
           <div key={`empty-${index}-${emptyIndex}`} />

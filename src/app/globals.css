@@ -121,7 +121,7 @@
   }
 }
 
-/* Custom animations for Hero section */
+
 @keyframes fadeInUp {
   0% {
     opacity: 0;
@@ -184,7 +184,7 @@
   }
 }
 
-/* Animation classes */
+
 .animate-fadeInUp {
   animation: fadeInUp 0.8s ease-out forwards;
 }
@@ -209,7 +209,7 @@
   animation: scaleUp 0.6s ease-out forwards;
 }
 
-/* Staggered animation delays */
+
 .animate-delay-100 {
   animation-delay: 0.1s;
 }

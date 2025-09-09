@@ -23,6 +23,14 @@ async function isLinkAlive(url: string) {
   }
 }
 
+interface JobQuery {
+  type?: string;
+  location?: { $regex: string; $options: string };
+  tags?: { $regex: string; $options: string };
+  source?: string;
+  featured?: boolean;
+}
+
 export const GET = async (req: NextRequest) => {
   try {
     await dbConnect();
@@ -31,6 +39,13 @@ export const GET = async (req: NextRequest) => {
     const type = url.searchParams.get("type");
     const location = url.searchParams.get("location");
     const tag = url.searchParams.get("tag");
+    const source = url.searchParams.get("source");
+    const featured = url.searchParams.get("featured");
+    const limit = parseInt(url.searchParams.get("limit") || "50");
+    const page = parseInt(url.searchParams.get("page") || "1");
+    const search = url.searchParams.get("search");
+    const sortBy = url.searchParams.get("sortBy") || "createdAt";
+    const sortOrder = url.searchParams.get("sortOrder") === "asc" ? 1 : -1;
 
     const query: JobQuery = {};
 
@@ -46,9 +61,74 @@ export const GET = async (req: NextRequest) => {
       query.tags = { $regex: tag, $options: "i" };
     }
 
-    const jobs = await JobModel.find(query).sort({ createdAt: -1 });
+    if (source) {
+      query.source = source;
+    }
 
-    return NextResponse.json(jobs);
+    if (featured === "true") {
+      query.featured = true;
+    }
+
+    
+    let jobs;
+    if (search) {
+      jobs = await JobModel.find({
+        ...query,
+        $or: [
+          { title: { $regex: search, $options: "i" } },
+          { company: { $regex: search, $options: "i" } },
+          { description: { $regex: search, $options: "i" } },
+          { tags: { $in: [new RegExp(search, "i")] } }
+        ]
+      })
+      .sort({ [sortBy]: sortOrder })
+      .skip((page - 1) * limit)
+      .limit(limit)
+      .lean();
+    } else {
+      jobs = await JobModel.find(query)
+        .sort({ [sortBy]: sortOrder })
+        .skip((page - 1) * limit)
+        .limit(limit)
+        .lean();
+    }
+
+    
+    const totalJobs = search
+      ? await JobModel.countDocuments({
+          ...query,
+          $or: [
+            { title: { $regex: search, $options: "i" } },
+            { company: { $regex: search, $options: "i" } },
+            { description: { $regex: search, $options: "i" } },
+            { tags: { $in: [new RegExp(search, "i")] } }
+          ]
+        })
+      : await JobModel.countDocuments(query);
+
+    const totalPages = Math.ceil(totalJobs / limit);
+
+    console.log(`Jobs API Debug: Found ${jobs.length} jobs, Total: ${totalJobs}, Query:`, query);
+
+    
+    if (jobs.length > 0) {
+      const jobIds = jobs.map(job => job._id);
+      await JobModel.updateMany(
+        { _id: { $in: jobIds } },
+        { $inc: { views: 1 } }
+      );
+    }
+
+    return NextResponse.json({
+      jobs,
+      pagination: {
+        currentPage: page,
+        totalPages,
+        totalJobs,
+        hasNextPage: page < totalPages,
+        hasPrevPage: page > 1,
+      },
+    });
   } catch (err) {
     console.log("Error getting jobs", err);
     return NextResponse.json("Error getting jobs", { status: 500 });

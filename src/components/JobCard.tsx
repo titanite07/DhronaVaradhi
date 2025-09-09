@@ -4,7 +4,19 @@ import Image from "next/image";
 import { Card, CardContent, CardFooter, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { ExternalLink, MapPin, Building2, Clock, Heart, Briefcase, Tag, Plus } from "lucide-react";
+import { 
+  ExternalLink, 
+  MapPin, 
+  Building2, 
+  Heart, 
+  Briefcase, 
+  Tag, 
+  Plus, 
+  MessageCircle,
+  Eye,
+  Calendar,
+  DollarSign
+} from "lucide-react";
 import { toast } from "sonner";
 
 interface Job {
@@ -17,6 +29,11 @@ interface Job {
   location: string;
   tags: string[];
   createdAt: string;
+  source?: string;
+  views?: number;
+  salary?: string;
+  isExternal?: boolean;
+  featured?: boolean;
 }
 
 interface JobCardProps {
@@ -24,9 +41,18 @@ interface JobCardProps {
   isFavorited?: boolean;
   onToggleFavorite?: (job: Job) => Promise<void> | void;
   onTrackJob?: (job: Job) => Promise<void> | void;
+  onShowComments?: (job: Job) => void;
+  showCommentButton?: boolean;
 }
 
-export const JobCard: React.FC<JobCardProps> = ({ job, isFavorited = false, onToggleFavorite, onTrackJob }) => {
+export const JobCard: React.FC<JobCardProps> = ({ 
+  job, 
+  isFavorited = false, 
+  onToggleFavorite, 
+  onTrackJob,
+  onShowComments,
+  showCommentButton = true
+}) => {
   const [preview, setPreview] = useState<{
     title?: string;
     description?: string;
@@ -89,24 +115,49 @@ export const JobCard: React.FC<JobCardProps> = ({ job, isFavorited = false, onTo
   return (
     <Card
       key={job._id}
-      className="group relative flex flex-col justify-between h-full max-h-[500px] p-6 rounded-3xl border border-orange-100 dark:border-orange-900/50 bg-white/70 dark:bg-gray-800/60 backdrop-blur-xl shadow-sm hover:shadow-2xl transition-all duration-500 hover:scale-[1.02] hover:border-orange-200 dark:hover:border-orange-800 overflow-hidden"
+      className="group relative flex flex-col justify-between h-full min-h-[480px] p-6 rounded-3xl border border-orange-100 dark:border-orange-900/50 bg-white/70 dark:bg-gray-800/60 backdrop-blur-xl shadow-sm hover:shadow-2xl transition-all duration-500 hover:scale-[1.02] hover:border-orange-200 dark:hover:border-orange-800 overflow-hidden mb-6"
     >
+      <div className="absolute inset-0 transition-opacity duration-500 opacity-0 bg-gradient-to-br from-orange-50/20 via-transparent to-rose-50/20 dark:from-orange-900/10 dark:to-rose-900/10 group-hover:opacity-100"></div>
       
-      <div className="absolute inset-0 bg-gradient-to-br from-orange-50/20 via-transparent to-rose-50/20 dark:from-orange-900/10 dark:to-rose-900/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-      
-      <div className="relative z-10">
-        <div className="flex justify-between items-start mb-4">
+      <div className="relative z-10 flex flex-col flex-grow">
+        <div className="flex items-start justify-between mb-4">
           <div className="flex-1">
-            <CardTitle className="text-xl font-bold text-gray-800 dark:text-gray-100 mb-2 line-clamp-2 group-hover:text-orange-700 dark:group-hover:text-orange-300 transition-colors duration-300">
-              {job.title}
-            </CardTitle>
-            <div className="flex items-center gap-2 text-gray-600 dark:text-gray-300 mb-1">
-              <Building2 className="h-4 w-4 text-orange-500" />
-              <p className="text-sm font-medium">{job.company}</p>
+            <div className="flex items-center gap-2 mb-2">
+              <CardTitle className="text-xl font-bold text-gray-800 transition-colors duration-300 dark:text-gray-100 line-clamp-2 group-hover:text-orange-700 dark:group-hover:text-orange-300">
+                {job.title}
+              </CardTitle>
+              {job.featured && (
+                <Badge className="px-2 py-1 text-xs font-medium text-yellow-700 border-0 rounded-full bg-gradient-to-r from-yellow-100 to-yellow-200 dark:from-yellow-900/50 dark:to-yellow-800/50 dark:text-yellow-300">
+                  ⭐ Featured
+                </Badge>
+              )}
             </div>
-            <div className="flex items-center gap-2 text-gray-500 dark:text-gray-400">
-              <MapPin className="h-4 w-4 text-rose-500" />
-              <p className="text-sm">{job.location}</p>
+            <div className="flex items-center gap-2 mb-1 text-gray-600 dark:text-gray-300">
+              <Building2 className="w-4 h-4 text-orange-500" />
+              <p className="text-sm font-medium">{job.company}</p>
+              {job.source && job.source !== "User Submitted" && (
+                <Badge variant="outline" className="text-xs px-2 py-0.5">
+                  {job.source}
+                </Badge>
+              )}
+            </div>
+            <div className="flex items-center gap-4 text-gray-500 dark:text-gray-400">
+              <div className="flex items-center gap-1">
+                <MapPin className="w-4 h-4 text-rose-500" />
+                <p className="text-sm">{job.location}</p>
+              </div>
+              {job.salary && (
+                <div className="flex items-center gap-1">
+                  <DollarSign className="w-4 h-4 text-green-500" />
+                  <p className="text-sm">{job.salary}</p>
+                </div>
+              )}
+              {job.views && job.views > 0 && (
+                <div className="flex items-center gap-1">
+                  <Eye className="w-3 h-3 text-gray-400" />
+                  <p className="text-xs">{job.views}</p>
+                </div>
+              )}
             </div>
           </div>
           
@@ -115,67 +166,66 @@ export const JobCard: React.FC<JobCardProps> = ({ job, isFavorited = false, onTo
               href={job.link}
               target="_blank"
               rel="noopener noreferrer"
-              className="p-3 rounded-full bg-gradient-to-r from-orange-100 to-rose-100 dark:from-orange-900/50 dark:to-rose-900/50 hover:from-orange-200 hover:to-rose-200 dark:hover:from-orange-800/70 dark:hover:to-rose-800/70 transition-all duration-300 group/link"
+              className="p-3 transition-all duration-300 rounded-full bg-gradient-to-r from-orange-100 to-rose-100 dark:from-orange-900/50 dark:to-rose-900/50 hover:from-orange-200 hover:to-rose-200 dark:hover:from-orange-800/70 dark:hover:to-rose-800/70 group/link"
             >
-              <ExternalLink className="h-5 w-5 text-orange-600 dark:text-orange-400 group-hover/link:scale-110 transition-transform duration-300" />
+              <ExternalLink className="w-5 h-5 text-orange-600 transition-transform duration-300 dark:text-orange-400 group-hover/link:scale-110" />
             </a>
             <div className="flex items-center gap-1 text-xs text-gray-400 dark:text-gray-500">
-              <Clock className="h-3 w-3" />
-              <span>New</span>
+              <Calendar className="w-3 h-3" />
+              <span>{new Date(job.createdAt).toLocaleDateString()}</span>
             </div>
           </div>
         </div>
 
         {preview.title && (
           <div className="rounded-2xl border border-orange-100 dark:border-orange-900/30 p-4 my-4 bg-gradient-to-r from-orange-50/50 to-rose-50/50 dark:from-orange-900/20 dark:to-rose-900/20 backdrop-blur-sm max-h-[200px] overflow-hidden">
-            {preview.image && (
+            {preview.image && preview.image.length > 0 && (
               <Image
                 src={preview.image}
                 alt="preview"
                 width={400}
                 height={120}
-                className="w-full h-24 object-cover rounded-xl mb-3 shadow-md"
+                className="object-cover w-full h-24 mb-3 shadow-md rounded-xl"
               />
             )}
-            <h4 className="font-semibold text-sm text-gray-800 dark:text-gray-200 mb-2 line-clamp-1">{preview.title}</h4>
-            <p className="text-xs text-gray-600 dark:text-gray-400 line-clamp-2 leading-relaxed">
+            <h4 className="mb-2 text-sm font-semibold text-gray-800 dark:text-gray-200 line-clamp-1">{preview.title}</h4>
+            <p className="text-xs leading-relaxed text-gray-600 dark:text-gray-400 line-clamp-2">
               {preview.description}
             </p>
           </div>
         )}
 
-        <CardContent className="text-sm text-gray-600 dark:text-gray-300 line-clamp-3 px-0 mb-4 leading-relaxed min-h-[60px]">
+        <CardContent className="flex-grow px-0 mb-4 text-sm leading-relaxed text-gray-600 dark:text-gray-300 line-clamp-3">
           {job.description}
         </CardContent>
+        
+        <div className="flex flex-wrap gap-2 mt-auto">
+          <Badge className="px-4 py-2 text-xs font-medium text-orange-700 border-0 rounded-full shadow-sm bg-gradient-to-r from-orange-100 to-orange-200 dark:from-orange-900/50 dark:to-orange-800/50 dark:text-orange-300">
+            <Briefcase className="w-3 h-3 mr-1" />
+            {job.type}
+          </Badge>
+          <Badge className="px-4 py-2 text-xs font-medium border-0 rounded-full shadow-sm bg-gradient-to-r from-rose-100 to-rose-200 text-rose-700 dark:from-rose-900/50 dark:to-rose-800/50 dark:text-rose-300">
+            <MapPin className="w-3 h-3 mr-1" />
+            {job.location}
+          </Badge>
+          {job.tags.map((t, i) => (
+            <Badge
+              key={i}
+              className="px-4 py-2 text-xs font-medium transition-shadow duration-300 border-0 rounded-full shadow-sm bg-gradient-to-r from-amber-100 to-amber-200 text-amber-700 dark:from-amber-900/50 dark:to-amber-800/50 dark:text-amber-300 hover:shadow-md"
+            >
+              <Tag className="w-3 h-3 mr-1" />
+              {t}
+            </Badge>
+          ))}
+        </div>
       </div>
 
-      <CardFooter className="flex flex-wrap gap-2 mt-auto px-0 relative z-10">
-        <Badge className="bg-gradient-to-r from-orange-100 to-orange-200 text-orange-700 dark:from-orange-900/50 dark:to-orange-800/50 dark:text-orange-300 px-4 py-2 rounded-full text-xs font-medium border-0 shadow-sm">
-          <Briefcase className="h-3 w-3 mr-1" />
-          {job.type}
-        </Badge>
-        <Badge className="bg-gradient-to-r from-rose-100 to-rose-200 text-rose-700 dark:from-rose-900/50 dark:to-rose-800/50 dark:text-rose-300 px-4 py-2 rounded-full text-xs font-medium border-0 shadow-sm">
-          <MapPin className="h-3 w-3 mr-1" />
-          {job.location}
-        </Badge>
-        {job.tags.map((t, i) => (
-          <Badge
-            key={i}
-            className="bg-gradient-to-r from-amber-100 to-amber-200 text-amber-700 dark:from-amber-900/50 dark:to-amber-800/50 dark:text-amber-300 px-4 py-2 rounded-full text-xs font-medium border-0 shadow-sm hover:shadow-md transition-shadow duration-300"
-          >
-            <Tag className="h-3 w-3 mr-1" />
-            {t}
-          </Badge>
-        ))}
-      </CardFooter>
-      
-      
-      <div className="absolute top-4 right-4 flex flex-col gap-2 opacity-0 group-hover:opacity-100 transition-all duration-300">
-      
+      <CardFooter className="absolute z-20 flex flex-col gap-2 transition-all duration-300 opacity-0 bottom-4 right-4 group-hover:opacity-100">
+        {}
         <Button
           size="sm"
           variant="outline"
-          className="p-2 rounded-full backdrop-blur-sm bg-white/80 dark:bg-gray-800/80 hover:bg-orange-50 dark:hover:bg-orange-900/20 border-orange-200 dark:border-orange-800"
+          className="p-2 border-orange-200 rounded-full backdrop-blur-sm bg-white/80 dark:bg-gray-800/80 hover:bg-orange-50 dark:hover:bg-orange-900/20 dark:border-orange-800"
           onClick={handleTrackJob}
           disabled={isTracking}
           title="Add to job tracker"
@@ -183,7 +233,20 @@ export const JobCard: React.FC<JobCardProps> = ({ job, isFavorited = false, onTo
           <Plus className={`h-4 w-4 text-orange-500 transition-all duration-300 ${isTracking ? 'animate-spin' : ''}`} />
         </Button>
         
-      
+        {}
+        {showCommentButton && (
+          <Button
+            size="sm"
+            variant="outline"
+            className="p-2 border-blue-200 rounded-full backdrop-blur-sm bg-white/80 dark:bg-gray-800/80 hover:bg-blue-50 dark:hover:bg-blue-900/20 dark:border-blue-800"
+            onClick={() => onShowComments?.(job)}
+            title="View comments"
+          >
+            <MessageCircle className="w-4 h-4 text-blue-500" />
+          </Button>
+        )}
+        
+        {}
         <button 
           className={`p-2 rounded-full backdrop-blur-sm transition-all duration-300 ${
             isFavorited 
@@ -201,7 +264,7 @@ export const JobCard: React.FC<JobCardProps> = ({ job, isFavorited = false, onTo
             }`} 
           />
         </button>
-      </div>
+      </CardFooter>
     </Card>
   );
 };

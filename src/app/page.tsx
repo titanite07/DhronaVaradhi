@@ -31,7 +31,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 
-import { X, Filter, Plus, Briefcase, Heart } from "lucide-react";
+import { X, Filter, Plus, Briefcase, Heart, RefreshCw } from "lucide-react";
 
 interface Job {
   _id: string;
@@ -55,9 +55,9 @@ export default function Home() {
   const [tag, setTag] = useState("");
   const [tags, setTags] = useState<string[]>([]);
   const [filteredJobs, setFilteredJobs] = useState<Job[]>([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true); 
   const [filters, setFilters] = useState({
-    type: "",
+    type: "all",
     location: "",
     tag: "",
   });
@@ -70,22 +70,33 @@ export default function Home() {
 
   const fetchJobs = useCallback(async () => {
     try {
-      const res = await axios.get("/api/jobs", {
-        params: {
-          type: filters.type,
-          location: filters.location,
-          tag: filters.tag,
-        },
-      });
+      setLoading(true); 
+      const params: Record<string, string> = {};
+      
+      if (filters.type && filters.type !== "all") {
+        params.type = filters.type;
+      }
+      if (filters.location) {
+        params.location = filters.location;
+      }
+      if (filters.tag) {
+        params.tag = filters.tag;
+      }
+      
+      const res = await axios.get("/api/jobs", { params });
       
       if (res.status === 200) {
-        setFilteredJobs(res.data);
+        
+        console.log("Fetched jobs response:", res.data);
+        setFilteredJobs(res.data.jobs || []);
       } else {
         toast.error("Failed to fetch jobs");
       }
     } catch (err) {
       console.error("Error fetching jobs:", err);
       toast.error("Failed to fetch jobs");
+    } finally {
+      setLoading(false); 
     }
   }, [filters]);
 
@@ -145,18 +156,49 @@ export default function Home() {
 
   const clearFilters = () => {
     setFilters({
-      type: "",
+      type: "all",
       location: "",
       tag: "",
     });
     setShowFilters(false);
   };
 
+  const syncJobs = async () => {
+    setLoading(true);
+    try {
+      const response = await axios.post("/api/jobs/sync");
+      
+      if (response.data.success) {
+        toast.success(`Job sync completed! Added ${response.data.stats.added} new jobs`);
+        
+        await fetchJobs();
+      } else {
+        toast.error(response.data.message || "Job sync failed");
+      }
+    } catch (error) {
+      console.error("Sync error:", error);
+      toast.error("Failed to sync jobs. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
+    console.log("Component mounted, fetching jobs...");
     fetchJobs();
   }, [fetchJobs]);
 
   const currentJobs = showFavorites ? favorites : filteredJobs;
+  
+  
+  useEffect(() => {
+    console.log("Jobs state update:", {
+      filteredJobs: filteredJobs.length,
+      currentJobs: currentJobs.length,
+      showFavorites,
+      favorites: favorites.length
+    });
+  }, [filteredJobs, currentJobs, showFavorites, favorites]);
 
   return (
     <>
@@ -209,6 +251,17 @@ export default function Home() {
               >
                 <Filter className="h-4 w-4 mr-2" />
                 Filters
+              </Button>
+
+              <Button
+                onClick={syncJobs}
+                variant="outline"
+                className="rounded-full transition-all duration-300 hover:scale-105"
+                size="lg"
+                disabled={loading}
+              >
+                <RefreshCw className={`h-4 w-4 mr-2 ${loading ? 'animate-spin' : ''}`} />
+                {loading ? 'Syncing...' : 'Sync Jobs'}
               </Button>
 
               <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
@@ -379,7 +432,7 @@ export default function Home() {
                         <SelectValue placeholder="All Types" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="">All Types</SelectItem>
+                        <SelectItem value="all">All Types</SelectItem>
                         <SelectItem value="Full Time">Full Time</SelectItem>
                         <SelectItem value="Part Time">Part Time</SelectItem>
                         <SelectItem value="Contract">Contract</SelectItem>

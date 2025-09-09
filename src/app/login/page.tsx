@@ -37,7 +37,7 @@ export default function LoginPage() {
       localStorage.setItem('userAuth', JSON.stringify(userData));
       localStorage.setItem('authToken', authToken);
 
-      document.cookie = `authToken=${authToken}; path=/; max-age=86400`; // 24 hours
+      document.cookie = `authToken=${authToken}; path=/; max-age=86400`; 
 
       toast.success("Login successful! Redirecting to dashboard...");
 

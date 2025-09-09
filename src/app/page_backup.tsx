@@ -86,7 +86,7 @@ export default function Home() {
         setFilteredJobs(res.data);
         console.log("Set filtered jobs:", res.data.length, "jobs");
         
-        // Force a re-render debug
+        
         setTimeout(() => {
           console.log("After state update - filteredJobs should be updated");
         }, 100);
@@ -127,7 +127,7 @@ export default function Home() {
         setType("Full Time");
         setTags([]);
         setDialogOpen(false);
-        fetchJobs(); // Refresh the jobs list
+        fetchJobs(); 
       }
     } catch (err) {
       console.error("Error posting job:", err);
@@ -168,7 +168,7 @@ export default function Home() {
 
   const currentJobs = showFavorites ? favorites : filteredJobs;
   
-  // Debug logging
+  
   console.log("Current jobs state:", {
     showFavorites,
     favoritesCount: favorites.length,
@@ -178,7 +178,7 @@ export default function Home() {
     actualCurrentJobs: currentJobs
   });
   
-  // Also log when filteredJobs array changes
+  
   useEffect(() => {
     console.log("Filtered Jobs array updated:", {
       filteredJobsLength: filteredJobs.length,
@@ -192,16 +192,16 @@ export default function Home() {
       <Hero />
       <Docker />
       <div className="relative min-h-screen font-[family-name:var(--font-geist-sans)]">
-        {/* Warm, comforting gradient background */}
+        {}
         <div className="absolute inset-0 z-0 bg-gradient-to-br from-orange-50 via-rose-50 to-amber-50 dark:from-slate-900 dark:via-gray-900 dark:to-neutral-900">
           <div className="absolute inset-0 opacity-15 bg-[radial-gradient(circle_at_20%_50%,theme(colors.orange.200),transparent_50%),radial-gradient(circle_at_80%_20%,theme(colors.rose.200),transparent_50%),radial-gradient(circle_at_40%_80%,theme(colors.amber.200),transparent_50%)] dark:bg-[radial-gradient(circle_at_20%_50%,theme(colors.orange.900),transparent_50%),radial-gradient(circle_at_80%_20%,theme(colors.rose.900),transparent_50%),radial-gradient(circle_at_40%_80%,theme(colors.amber.900),transparent_50%)]"></div>
           <div className="absolute inset-0 opacity-5 bg-[radial-gradient(circle,theme(colors.gray.400)_1px,transparent_1px)] bg-[size:32px_32px] dark:bg-[radial-gradient(circle,theme(colors.gray.600)_1px,transparent_1px)]"></div>
         </div>
 
-      {/* Main content */}
+      {}
       <div className="relative z-10 p-6 pb-20 sm:p-8 lg:p-12">
         <div className="max-w-8xl mx-auto">
-          {/* Header section with modern glass morphism */}
+          {}
           <div className="flex flex-col lg:flex-row justify-between items-center mb-12 gap-6">
             <div className="flex flex-col items-center lg:items-start text-center lg:text-left">
               <div className="flex items-center gap-3 mb-4">
@@ -390,7 +390,7 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Filters section */}
+          {}
           {showFilters && (
             <Card className="mb-8 border-none shadow-xl bg-white/70 dark:bg-gray-900/70 backdrop-blur-lg">
               <CardContent className="p-6">
@@ -465,7 +465,7 @@ export default function Home() {
             </Card>
           )}
 
-          {/* Analytics section */}
+          {}
           {!showFavorites && filteredJobs.length > 0 && (
             <div className="mb-8">
               <h2 className="text-2xl font-bold mb-6 text-gray-800 dark:text-gray-200">
@@ -475,7 +475,7 @@ export default function Home() {
             </div>
           )}
 
-          {/* Virtual Jobs grid */}
+          {}
           <VirtualJobGrid
             jobs={currentJobs}
             isFavorited={isFavorited}

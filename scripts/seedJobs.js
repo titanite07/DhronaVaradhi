@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-// Connect to MongoDB
+
 async function dbConnect() {
   const MONGODB_URI = "mongodb://localhost:27017/jobshare";
   try {
@@ -11,7 +11,7 @@ async function dbConnect() {
   }
 }
 
-// Job Schema
+
 const jobSchema = new mongoose.Schema({
   title: { type: String, required: true, trim: true },
   company: { type: String, required: true, trim: true },
@@ -109,11 +109,11 @@ async function seedJobs() {
     await dbConnect();
     console.log("Connected to MongoDB");
     
-    // Clear existing jobs
+    
     await JobModel.deleteMany({});
     console.log("Cleared existing jobs");
     
-    // Insert sample jobs
+    
     const insertedJobs = await JobModel.insertMany(sampleJobs);
     console.log(`Inserted ${insertedJobs.length} sample jobs`);
     

@@ -22,7 +22,7 @@ export const GET = async (req: NextRequest) => {
       .sort({ updatedAt: -1 });
 
     const jobsWithStatus = trackedJobs
-      .filter((tracked) => tracked.jobId) // Filter out null populated refs
+      .filter((tracked) => tracked.jobId) 
       .map((tracked) => ({
         ...tracked.jobId._doc,
         trackingId: tracked._id,
@@ -57,7 +57,7 @@ export const POST = async (req: NextRequest) => {
       );
     }
 
-    // Check if job exists
+    
     const job = await JobModel.findById(jobId);
     if (!job) {
       return NextResponse.json(
@@ -66,7 +66,7 @@ export const POST = async (req: NextRequest) => {
       );
     }
 
-    // Update or create tracked job
+    
     const updateData = {
       status,
       updatedAt: new Date(),

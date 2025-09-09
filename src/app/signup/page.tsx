@@ -49,10 +49,10 @@ export default function SignupPage() {
     setIsLoading(true);
 
     try {
-      // Simulate API call
+      
       await new Promise(resolve => setTimeout(resolve, 1500));
 
-      // Store user data and auth token
+      
       const userData = {
         email,
         name: name.charAt(0).toUpperCase() + name.slice(1),
@@ -65,8 +65,8 @@ export default function SignupPage() {
       localStorage.setItem('userAuth', JSON.stringify(userData));
       localStorage.setItem('authToken', authToken);
 
-      // Set auth cookie for middleware
-      document.cookie = `authToken=${authToken}; path=/; max-age=86400`; // 24 hours
+      
+      document.cookie = `authToken=${authToken}; path=/; max-age=86400`; 
 
       toast.success("Account created successfully! Welcome to DhronaVaradhi");
       router.push('/dashboard');
@@ -87,12 +87,12 @@ export default function SignupPage() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-orange-50 via-rose-50 to-amber-50 dark:from-slate-900 dark:via-gray-900 dark:to-neutral-900 p-4">
-      {/* Background Effects */}
+      {}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute inset-0 opacity-30 bg-[radial-gradient(circle_at_20%_50%,theme(colors.orange.200),transparent_70%),radial-gradient(circle_at_80%_20%,theme(colors.rose.200),transparent_70%),radial-gradient(circle_at_40%_80%,theme(colors.amber.200),transparent_70%)] dark:bg-[radial-gradient(circle_at_20%_50%,theme(colors.orange.900),transparent_70%),radial-gradient(circle_at_80%_20%,theme(colors.rose.900),transparent_70%),radial-gradient(circle_at_40%_80%,theme(colors.amber.900),transparent_70%)] animate-pulse [animation-duration:4s]"></div>
       </div>
 
-      {/* Signup Card */}
+      {}
       <Card className="w-full max-w-md relative z-10 backdrop-blur-xl bg-white/80 dark:bg-gray-800/80 border-orange-100 dark:border-orange-900/50 shadow-2xl">
         <CardHeader className="text-center space-y-2">
           <div className="mx-auto w-12 h-12 bg-gradient-to-br from-orange-500 to-rose-500 rounded-xl flex items-center justify-center">
@@ -108,7 +108,7 @@ export default function SignupPage() {
 
         <CardContent className="space-y-4">
           <form onSubmit={handleSubmit} className="space-y-4">
-            {/* Name Field */}
+            {}
             <div className="space-y-2">
               <label htmlFor="name" className="text-sm font-medium text-gray-700 dark:text-gray-300">
                 Full Name
@@ -128,7 +128,7 @@ export default function SignupPage() {
               </div>
             </div>
 
-            {/* Email Field */}
+            {}
             <div className="space-y-2">
               <label htmlFor="email" className="text-sm font-medium text-gray-700 dark:text-gray-300">
                 Email Address
@@ -148,7 +148,7 @@ export default function SignupPage() {
               </div>
             </div>
 
-            {/* Password Field */}
+            {}
             <div className="space-y-2">
               <label htmlFor="password" className="text-sm font-medium text-gray-700 dark:text-gray-300">
                 Password
@@ -177,7 +177,7 @@ export default function SignupPage() {
               <p className="text-xs text-gray-500">Minimum 6 characters</p>
             </div>
 
-            {/* Confirm Password Field */}
+            {}
             <div className="space-y-2">
               <label htmlFor="confirmPassword" className="text-sm font-medium text-gray-700 dark:text-gray-300">
                 Confirm Password
@@ -205,7 +205,7 @@ export default function SignupPage() {
               </div>
             </div>
 
-            {/* Submit Button */}
+            {}
             <Button
               type="submit"
               className="w-full bg-gradient-to-r from-orange-500 to-rose-500 hover:from-orange-600 hover:to-rose-600 text-white font-medium py-2.5 transition-all duration-200 transform hover:scale-[1.02]"
@@ -222,7 +222,7 @@ export default function SignupPage() {
             </Button>
           </form>
 
-          {/* Login Link */}
+          {}
           <div className="text-center">
             <p className="text-sm text-gray-600 dark:text-gray-400">
               Already have an account?{' '}

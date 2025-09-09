@@ -19,7 +19,7 @@ export const useFavorites = () => {
   const [favoriteIds, setFavoriteIds] = useState<Set<string>>(new Set());
   const [loading, setLoading] = useState(false);
 
-  // Generate a simple user identifier (in production, use proper user auth)
+  
   const getUserIdentifier = () => {
     let identifier = localStorage.getItem("userIdentifier");
     if (!identifier) {

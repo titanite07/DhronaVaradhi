@@ -22,7 +22,7 @@ export const GET = async (req: NextRequest) => {
       .sort({ createdAt: -1 });
 
     const favoriteJobs = favorites
-      .filter((fav) => fav.jobId) // Filter out null populated refs
+      .filter((fav) => fav.jobId) 
       .map((fav) => fav.jobId);
 
     return NextResponse.json(favoriteJobs);
@@ -71,7 +71,7 @@ export const POST = async (req: NextRequest) => {
           success: true,
         });
       } catch (err) {
-        // Handle duplicate key error (job already in favorites)
+        
         if (err && typeof err === 'object' && 'code' in err && err.code === 11000) {
           return NextResponse.json(
             { message: "Job already in favorites" },

@@ -52,7 +52,7 @@ export default function JobAnalytics() {
 
   return (
     <div className="space-y-8">
-      {/* Key Metrics */}
+      {}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         <Card className="bg-gradient-to-br from-orange-50 to-orange-100 dark:from-orange-900/20 dark:to-orange-800/20 border-orange-200 dark:border-orange-800">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
@@ -120,9 +120,9 @@ export default function JobAnalytics() {
         </Card>
       </div>
 
-      {/* Detailed Breakdowns */}
+      {}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Job Types */}
+        {}
         <Card className="bg-white/70 dark:bg-gray-800/70 backdrop-blur-sm">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
@@ -142,7 +142,7 @@ export default function JobAnalytics() {
           </CardContent>
         </Card>
 
-        {/* Top Companies */}
+        {}
         <Card className="bg-white/70 dark:bg-gray-800/70 backdrop-blur-sm">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
@@ -162,7 +162,7 @@ export default function JobAnalytics() {
           </CardContent>
         </Card>
 
-        {/* Popular Tags */}
+        {}
         <Card className="bg-white/70 dark:bg-gray-800/70 backdrop-blur-sm">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
