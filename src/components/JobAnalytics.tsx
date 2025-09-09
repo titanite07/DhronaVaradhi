@@ -19,14 +19,10 @@ export default function JobAnalytics() {
   useEffect(() => {
     const fetchAnalytics = async () => {
       try {
-        const res = await axios.get("/api/analytics");
-        setAnalytics(res.data);
-      } catch (err: any) {
-        if (err.response) {
-          console.error("Error fetching analytics, response:", err.response.status, err.response.data);
-        } else {
-          console.error("Error fetching analytics:", err.message || err);
-        }
+  const res = await axios.get<AnalyticsData>("/api/analytics");
+  setAnalytics(res.data as AnalyticsData);
+      } catch (err) {
+        console.error("Error fetching analytics:", err);
       } finally {
         setLoading(false);
       }
