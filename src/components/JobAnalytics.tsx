@@ -21,8 +21,12 @@ export default function JobAnalytics() {
       try {
         const res = await axios.get("/api/analytics");
         setAnalytics(res.data);
-      } catch (err) {
-        console.error("Error fetching analytics:", err);
+      } catch (err: any) {
+        if (err.response) {
+          console.error("Error fetching analytics, response:", err.response.status, err.response.data);
+        } else {
+          console.error("Error fetching analytics:", err.message || err);
+        }
       } finally {
         setLoading(false);
       }
